@@ -3,41 +3,44 @@ import './index.css';
 
 import {
   BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams
 } from "react-router-dom";
 
 export default class HomePage extends Component {
 
-constructor(props){
-    super(props);
-    
-}
-
-state = {
-    user: null
-}
+    state= {
+        queries: "",
+        languages: "",
+        bookType: "",
+        rating: "",
+    }
 
 componentDidMount(){
 
     const {search} = this.props.location;
 
-    const params = search.slice(1).split(",");
+    const params = search.slice(1).split("&");
 
+    let array = [];
 
+    params.forEach(
+        (element) => {
+
+            array.push({[element.split("=")[0]]:element.split("=")[1]})
     
-    console.log(params);
+        }
+    )
 
-
-
+    this.setState({
+        queries: array,
+        languages: array.language
+    })
 
 }
 
 
     render() {
+
+console.log(this.state.queries);
 
        return (
            <Router>
@@ -74,7 +77,7 @@ componentDidMount(){
                             </label>
 
                             <label className="checkbox-field">
-                                <input name="language" type="checkbox" />
+                                <input name="language" type="checkbox" checked={this.state.queries?true:false}/>
                                 <span className="checkbox-field__label">German</span>
                             </label>
 
