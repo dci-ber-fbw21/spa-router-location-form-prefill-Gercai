@@ -3,15 +3,11 @@ import logo from './logo.svg';
 import './App.css';
 import Homepage from "./pages/home";
 
-
-
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams
+  Link
 } from "react-router-dom";
 import HomePage from './pages/home';
 
@@ -20,9 +16,8 @@ function App() {
     <div className="App">
       <Router>
         <Switch>
-        <Route path="/form/:query" component={HomePage}></Route>
-        <Route path="/form/" component={HomePage}></Route>
-        
+          <Route path="/form/:query" component={HomePage}></Route>
+          <Route path="/form/" component={HomePage}></Route>
         </Switch>
       </Router>
     </div>

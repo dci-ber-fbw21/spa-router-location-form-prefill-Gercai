@@ -9,7 +9,7 @@ export default class HomePage extends Component {
 
     state= {
         queries: "",
-        languages: "",
+        languages: [],
         bookType: "",
         rating: "",
     }
@@ -17,30 +17,24 @@ export default class HomePage extends Component {
 componentDidMount(){
 
     const {search} = this.props.location;
-
     const params = search.slice(1).split("&");
-
-    let array = [];
+    let obj = {};
 
     params.forEach(
         (element) => {
-
-            array.push({[element.split("=")[0]]:element.split("=")[1]})
-    
+            obj[element.split("=")[0]] = element.split("=")[1]
         }
     )
 
     this.setState({
-        queries: array,
-        languages: array.language
+        languages: obj.language
     })
-
 }
 
 
     render() {
 
-console.log(this.state.queries);
+console.log(this.state.languages);
 
        return (
            <Router>
@@ -55,8 +49,7 @@ console.log(this.state.queries);
 
                             <input
                                 name="search-term"
-                                type="text"
-                            />
+                                type="text"/>
                         </div>
 
                         {/* Used */}
@@ -77,7 +70,9 @@ console.log(this.state.queries);
                             </label>
 
                             <label className="checkbox-field">
-                                <input name="language" type="checkbox" checked={this.state.queries?true:false}/>
+                              
+                                <input name="language" type="checkbox" checked={this.state.languages.includes("german")?true:false}/>
+                              
                                 <span className="checkbox-field__label">German</span>
                             </label>
 
