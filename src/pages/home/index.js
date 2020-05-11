@@ -1,9 +1,43 @@
 import React, { Component } from 'react';
 import './index.css';
 
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
+
 export default class HomePage extends Component {
+
+    state= {
+        queries: "",
+        languages: [],
+        bookType: "",
+        rating: "",
+    }
+
+componentDidMount(){
+
+    const {search} = this.props.location;
+    const params = search.slice(1).split("&");
+    let obj = {};
+
+    params.forEach(
+        (element) => {
+            obj[element.split("=")[0]] = element.split("=")[1]
+        }
+    )
+
+    this.setState({
+        languages: obj.language
+    })
+}
+
+
     render() {
-        return (
+
+console.log(this.state.languages);
+
+       return (
+           <Router>
             <div style={{ backgroundColor: 'blue' }}>
                 <div className="home-page">
                     <h1>Filters</h1>
@@ -15,8 +49,7 @@ export default class HomePage extends Component {
 
                             <input
                                 name="search-term"
-                                type="text"
-                            />
+                                type="text"/>
                         </div>
 
                         {/* Used */}
@@ -37,7 +70,9 @@ export default class HomePage extends Component {
                             </label>
 
                             <label className="checkbox-field">
-                                <input name="language" type="checkbox" />
+                              
+                                <input name="language" type="checkbox" checked={this.state.languages.includes("german")?true:false}/>
+                              
                                 <span className="checkbox-field__label">German</span>
                             </label>
 
@@ -121,6 +156,7 @@ export default class HomePage extends Component {
                     </form>
                 </div>
             </div>
+            </Router>
         )
     }
 }
