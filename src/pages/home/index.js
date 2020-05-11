@@ -1,9 +1,46 @@
 import React, { Component } from 'react';
 import './index.css';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch,
+  useParams
+} from "react-router-dom";
+
 export default class HomePage extends Component {
+
+constructor(props){
+    super(props);
+    
+}
+
+state = {
+    user: null
+}
+
+componentDidMount(){
+
+    const {search} = this.props.location;
+
+    const params = search.slice(1).split(",");
+
+
+    
+    console.log(params);
+
+
+
+
+}
+
+
     render() {
-        return (
+
+       return (
+           <Router>
             <div style={{ backgroundColor: 'blue' }}>
                 <div className="home-page">
                     <h1>Filters</h1>
@@ -121,6 +158,7 @@ export default class HomePage extends Component {
                     </form>
                 </div>
             </div>
+            </Router>
         )
     }
 }
